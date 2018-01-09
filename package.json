@@ -1,0 +1,31 @@
+{
+  "name": "koa-getting-started",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon ./src/index.js",
+    "start:dev": "npm run migrate | npm run seed | npm start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "sleep 5s && knex migrate:latest --env development --knexfile ./src/api/db/knexfile.js",
+    "seed": "sleep 10s && knex seed:run --env development --knexfile ./src/api/db/knexfile.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "knex": "^0.14.2",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-passport": "^4.0.1",
+    "koa-redis": "^3.1.1",
+    "koa-router": "^7.3.0",
+    "koa-session": "^5.5.1",
+    "passport-local": "^1.0.0",
+    "pg": "^7.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.8"
+  }
+}

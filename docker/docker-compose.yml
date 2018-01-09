@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6.2-alpine
+    restart: always
+    ports:
+     - "5432:5432"
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_DB: dbname
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  redis:
+    image: "redis:alpine"
+
+  web:
+    command: npm run start:dev
+    image: "node:8.9.3-alpine"
+    working_dir: /src/app
+    volumes:
+    - "..:/src/app"
+    ports:
+     - "3000:3000"
+     - "9229:9229"
+    depends_on:
+     - "db"
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_DB: dbname
